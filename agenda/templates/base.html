@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<TITLE>{% block title %} {% endblock %}</TITLE>
+<script src="/media/js/jquery.js"></script>
+	<link href="/media/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/media/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="/media/js/jquery.form.min.js"></script>
+    <script src="/media/js/demo.js"></script>
+   	<script src="/media/bootstrap/js/bootstrap.js"></script>
+    <style type="text/css">
+		body {
+        		padding-top: 60px;
+        		padding-bottom: 40px;
+      		}
+      		.sidebar-nav {
+       			padding: 9px 0;
+      			}	
+	</style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+			</p><a class="brand" href="{% url "vista_principal" %}">Agenda telefonica </a>
+			
+			{% if user.is_authenticated %}
+	           		<ul class="nav">
+        	     		<li><a href="/contactos/page/1/">Contactos</a>
+			{% endif %}
+            {% if user.is_authenticated %}
+				<li><a href="{% url "vista_logout" %}"> Cerrar Sesion </a></li>
+			{% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span9">
+          <div class="hero-unit">
+            {% block content %}
+            {% endblock%}
+          </div>
+        </div><!--/span-->
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                           
+        {% if user.is_authenticated %}
+		<u><center><li><a href="/perfil/{{user.get_profile.id}}/">Mi perfil</a></center></u>
+                <center><p>Bienvenido {{ user }} </p></center>
+		{% if user.get_profile.photo %}
+                	 <center><img src ="/media/{{user.get_profile.photo}}"width="100px" heigth="100px"/></center>
+		{% endif %}
+              {% else %}
+               <center><a href="/login/" class="btn btn-primary">Login<a></center>
+		<br><br>
+       		<center><a href="/registro/" class="btn btn-primary">¡Registrate ahora!<a></center>
+              {% endif %}
+              </p>
+            </ul>
+</body>
+</html>

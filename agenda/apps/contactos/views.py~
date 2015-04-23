@@ -1,0 +1,84 @@
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from agenda.apps.contactos.forms import addContactosForm
+from agenda.apps.contactos.models import contacto
+from django.http import HttpResponseRedirect
+
+
+def edit_contactos_view(request,id_cont):
+	info = "iniciado"
+	cont = contacto.objects.get(pk=id_cont)
+	if request.method == "POST":
+		form = addContactosForm(request.POST,request.FILES,instance=cont)
+		if form.is_valid():
+			edit_cont = form.save(commit=False)
+			form.save_m2m()
+			edit_cont.status = True
+			edit_cont.save() # Guardamos el objeto
+			info = "Correcto"
+			return HttpResponseRedirect('/contacto/%s/'%edit_cont.id)
+	else:
+		form = addContactosForm(instance=cont)
+	ctx = {'form':form,'informacion':info}
+	return render_to_response('contactos/edit.html',ctx,context_instance=RequestContext(request))
+
+
+def add_contactos_view(request):
+	info = ""
+	if request.method == "POST":
+		form = addContactosForm(request.POST,request.FILES)
+		if form.is_valid():
+			add = form.save(commit=False)
+			#add.status = True
+			add.save() # Guardamos la informacion
+			form.save_m2m() # Guarda las relaciones de ManyToMany
+			info = "Guardado satisfactoriamente"
+			return HttpResponseRedirect('/contacto/%s'%add.id)
+	else:
+		form = addContactosForm()
+	ctx = {'form':form,'informacion':info}
+	return render_to_response('contactos/addContacto.html',ctx,context_instance=RequestContext(request)) 
+
+def search_view(request):
+    query = request.GET.get('q', '')
+    if query:
+        qset = (
+            Q(nombre__icontains=query) |
+            Q(apellidos__icontains=query) |
+            Q(correo__icontains=query)
+        )
+        results = contactos.objects.filter(qset).distinct()
+    else:
+        results = []
+    return render_to_response("home/search.html", {
+        "results": results,
+        "query": query
+    })
+
+'''
+
+def add_contactos_view(request):
+	if request.method == "POST":
+		form= addContactosForm(request.POST)
+		info = "Inicializando"
+		if form.is_valid():
+			nombre = form.cleaned_data['nombre']
+			descripcion = form.cleaned_data['descripcion']
+			c = contacto()
+			c.nombre= nombre
+			c.descripcion = descripcion
+			c.status =True
+			c.save()
+			info = "Se guardo satisfactoriamente"
+		else:
+			info = "informacion con datos incorrectos"
+		form= addContactosForm()
+                ctx={'form':form, 'informacion':info}
+		return render_to_response('contactos/addContacto.html',ctx,context_instance=RequestContext(request))
+	else:
+		form= addContactosForm()
+		ctx={'form':form}
+		return render_to_response('contactos/addContacto.html',ctx,context_instance=RequestContext(request))
+'''
+# Create your views here.
+

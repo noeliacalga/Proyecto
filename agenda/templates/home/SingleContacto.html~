@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %} Contacto {% endblock %}
+{% block content %} 
+<p><b> Nombre =</b> {{ contacto.nombre }} </p>
+<p><b> Apellidos =</b> {{ contacto.apellidos}} </p>
+<p><b> Fecha de nacimiento =</b> {{ contacto.fecha_nacimiento}} </p>
+<p><b> Contacto =</b> {{ contacto.telefono}} </p>
+<p><b> Dirección =</b> {{ contacto.direccion}} </p>
+<p><b> Correo =</b> {{ contacto.correo}} </p>
+<p> <img src="/media/{{ contacto.imagen }}" width="150px" heigth="150px"/></p>
+<p><b> Categorias =</b>
+{% for cat in categorias %}
+<span class="label label-info"> {{cat.nombre}}</span>
+{% endfor %}
+<br><br>
+
+<a href="/contactos/page/1/" class="btn btn-primary">Regresar a la lista de Contactos</a>
+{% endblock %}
+

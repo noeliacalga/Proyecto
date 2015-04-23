@@ -1,0 +1,68 @@
+*
+{
+	
+	font-size:18px;
+}
+
+header h1{
+	font-family: Helvetica;
+	font-size:3em;
+	text-align:center;
+}
+
+header img{
+	float: right ;
+	max-height:250px;
+    padding-top:125px;        
+     
+}
+
+nav{
+	background : dodgerblue;
+	height:50;
+	margin:0px;
+	text-align:center;
+	height: auto;
+}
+
+nav a{
+	color: white;
+	font-family: 'Georgia';
+	font-size:1em;
+	
+	padding: 50px;
+	text-transform: capitalize;
+	
+}
+
+nav a:link{
+	text-decoration: underline;
+	position: center;
+}
+
+nav a:hover{
+	color: Black;
+}
+
+body{
+	background: CornflowerBlue;
+	margin: auto;	
+	width:85%; 
+}
+
+section{
+	background: lightblue;
+	padding: 50px; 
+	height: auto;
+}
+
+section h1{
+	font-family: Sans-Serif;
+	text-align:center;
+}
+
+section a{
+	font-size: 15px;
+	border-radius: 0px solid;
+	text-align:center;
+}

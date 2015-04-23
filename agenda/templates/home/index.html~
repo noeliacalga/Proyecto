@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %} Inicio - Bienvenidos {% endblock %}
+{% block content %} <br> Guarda tus contactos de manera sencilla y organizada 
+{% endif %}
+{% endblock %}
+

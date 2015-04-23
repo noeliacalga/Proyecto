@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} Agregando contactos {% endblock %}
+{% block content %}
+	<form action="." method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+{% include "floppyforms/input.html" %}
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    // Checking support for <input type="date"> using Modernizr:
+    // http://modernizr.com/
+    if (!Modernizr.inputtypes.date) {
+      var options = {
+        dateFormat: 'yy-mm-dd'
+      };
+      $('#{{ attrs.id }}').datepicker(options);
+    }
+  });
+</script>
+		<input type="submit" value="Agregar">
+		<input type="reset" value="Limpiar">
+	</form>
+<br>
+	{{ informacion }}
+<a href="/contactos/page/1/" class="btn btn-primary">Regresar a la lista de Contactos</a>
+{% endblock %}

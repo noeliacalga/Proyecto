@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %} Mis contactos {% endblock %}
+{% block content %}
+
+<h3><center> Lista de contactos</center> </h3>
+
+
+<!--IniciaModal-->
+ <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <h3 id="myModalLabel">Eliminar Contacto</h3>
+    </div>
+    <div class="modal-body">
+    <p>¿Realmente desea eliminar el contacto <span id="modal_name"></span>?</p>
+    </div>
+    <div class="modal-footer">
+        <form method="post" id="frmEliminar">
+            {% csrf_token %}
+            <input type="hidden" id="modal_idContacto" name="contact_id">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+    </div>
+</div>
+<!--EndModal-->
+
+{% if user.is_authenticated %}
+<a href="{% url "vista_agregar_contacto" %}" class="btn"><i class="icon-plus"></i> Nuevo</a><br>
+<a href="{% url "vista_search" %}" class="btn"><i class="icon-search"></i> Buscar</a><br>
+
+
+{% if contactos %}
+	<br>
+	<table class="table table-hover" id="tabla_contactos">
+		<thead>
+			<tr>
+				<th>Contactos</th>
+			</tr>
+		</thead>
+        
+
+	{% for p in contactos %}
+		
+	
+		<tbody>
+			
+			<tr id="tr{{p.id}}">
+				<td>{{p.nombre}}</td>
+				<td><a class="btn" href="/contacto/{{p.id}}/"><li class="icon-user"></li>Ver</a></td>
+				<td><a class="btn" href="/edit/contacto/{{p.id}}/"><li class="icon-pencil"></li>Editar</a></td>
+				<td><a href="#myModal" role="button" class="btn btn-danger delete" data-toggle="modal" id="{{p.id}}" data-name="{{p.nombre}}"><i class="icon-trash icon-white"></i>Eliminar</a></td>
+
+			</tr>
+                </tbody>
+
+	{% endfor %}
+	
+	</table>
+{% else %}
+        <h2>No existen contactos </h2>
+{% endif %}
+<br><br><br>
+
+{% if contactos %}
+	
+	<div class="pagination"><center>
+	<ul>
+	
+	<li><a href="/contactos/page/1"> << </a>
+	{% if contactos.has_previous %}
+		<li><a href="/contactos/page/{{contactos.previous_page_number }}/"> Anterior </a>
+	{% else %}
+		<li><a href="#"> Anterior </a>
+	{% endif %}
+	{% if contactos.has_next %}
+		<li><a href="/contactos/page/{{contactos.next_page_number }}/"> Siguiente </a>
+	{% else %}
+		<li><a href="#"> Siguiente </a>
+	{% endif %}
+		<li><a href="/contactos/page/{{contactos.paginator.num_pages }} "> >> </a>
+	</center>
+	</ul>
+	</div>
+{% endif %}
+{% endif %}
+{% endblock %}
+
