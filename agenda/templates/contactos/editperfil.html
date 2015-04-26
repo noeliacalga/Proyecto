@@ -1,19 +1,43 @@
 {% extends 'base.html' %}
-{% block title %} Agregar Producto {% endblock %}
+{% block title %} Edita tu perfil {% endblock %}
 {% block content %}
 <div class="row">
 	<div class="span6">
 	<form action="." method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
-		{{form.as_p}}
+		<label for="{{ form.nombre.auto_id }}">{{form.nombre.label}}</label>
+		{{form.nombre}} <br>
+		<label for="{{ form.apellidos.auto_id }}">{{form.apellidos.label}}</label>
+		{{form.apellidos}} <br>
+		<label for="{{ form.fecha_nacimiento.auto_id }}">{{form.fecha_nacimiento.label}}</label>
+        <input type="text" id="datepicker" value="{{ perfil.fecha_nacimiento|date:"d/m/Y"}}" name="fecha_nacimiento">
+		<label for="{{ form.telefono.auto_id }}">{{form.telefono.label}}</label>
+		{{form.telefono}} <br>
+		<label for="{{ form.direccion.auto_id }}">{{form.direccion.label}}</label>
+		{{form.direccion}} <br>
+		<label for="{{ form.correo.auto_id }}">{{form.correo.label}}</label>
+		{{form.correo}} <br>		
+		<p>Imagen</p>
+		<img src="{% get_media_prefix %}{{ perfil.imagen }}" width="200px" height="200px"> <br> <br>
+		
+		<input type="file" id="{{ form.nombre.auto_id }}" name="imagen"> <br> <br>		
+		
+		
+		
 		<button type="submit" class="btn btn-small btn-primary">Editar</button>
 		<button type="reset" class="btn btn-small btn-primary">Limpiar</button>
 	</form>
 	<br>
-	<a href="/perfil/{{user.get_profile.id}}/" class="btn btn-primary">Regresar al perfil </a>
+	<a href="/perfil/{{user.id}}/" class="btn btn-primary">Regresar al perfil </a>
 </div>
 	<div class="span6">
-	
+<script>
+  $(function() {
+    $("#datepicker").datepicker({
+        dateFormat: "dd/mm/yy"
+    });
+  });
+  </script>	
 
 </div>
 </div>

@@ -50,15 +50,15 @@
             <ul class="nav nav-list">
                            
         {% if user.is_authenticated %}
-		<u><center><li><a href="/perfil/{{user.get_profile.id}}/">Mi perfil</a></center></u>
+				<u><center><li><a href="/perfil/{{user.id}}/">Mi perfil</a></center></u>
                 <center><p>Bienvenido {{ user }} </p></center>
-		{% if user.get_profile.photo %}
-                	 <center><img src ="/media/{{user.get_profile.photo}}"width="100px" heigth="100px"/></center>
+		{% if user.userprofile.photo %}
+                	 <center><img src ="/media/{{user.userprofile.photo}}"width="100px" heigth="100px"/></center>
 		{% endif %}
               {% else %}
                <center><a href="/login/" class="btn btn-primary">Login<a></center>
-		<br><br>
-       		<center><a href="/registro/" class="btn btn-primary">¡Registrate ahora!<a></center>
+				<br><br>
+			   <center><a href="/registro/" class="btn btn-primary">¡Registrate ahora!<a></center>
               {% endif %}
               </p>
             </ul>

@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
 {% block title %} Perfil {% endblock %}
 {% block content %}
+<p></p>
+
 {% if user.is_authenticated %}
-	<td><a class="btn" href="/edit/perfil/{{user.get_profile.id}}/"><li class="icon-pencil"></li>Editar</a></td>
+	<td><a class="btn" href="/edit/perfil/{{perfil.id}}/"><li class="icon-pencil"></li>Editar</a></td>
 	<p></p>
-	<p><b> Nombre =</b> {{ user.get_profile.nombre }} </p>
-	<p><b> Apellidos =</b> {{ user.get_profile.apellidos}} </p>
-	<p><b> Fecha de nacimiento =</b> {{ user.get_profile.fecha_nacimiento}} </p>
-	<p><b> Contacto =</b> {{ user.get_profile.telefono}} </p>
-	<p><b> Dirección =</b> {{ user.get_profile.direccion}} </p>
-	<p><b> Correo =</b> {{ user.get_profile.correo}} </p>
-	{% if user.get_profile.photo %}
-                	 <img src ="/media/{{user.get_profile.photo}}"width="100px" heigth="100px"/>
+
+	<p><b> Nombre =</b> {{ perfil.nombre }} </p>
+	<p><b> Apellidos =</b> {{ perfil.apellidos}} </p>
+	<p><b> Fecha de nacimiento =</b> {{ perfil.fecha_nacimiento}} </p>
+	<p><b> Telefono=</b> {{ perfil.telefono}} </p>
+	<p><b> Dirección =</b> {{ perfil.direccion}} </p>
+	<p><b> Correo =</b> {{ perfil.correo}} </p>
+	{% if perfil.photo %}
+                	 <img src ="/media/{{user.userprofile.photo}}"width="100px" heigth="100px"/>
 	{% endif %}
 {% endif %}
 

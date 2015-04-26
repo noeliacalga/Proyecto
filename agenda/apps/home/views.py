@@ -12,6 +12,9 @@ from django.contrib.auth.decorators import login_required
 import json as simplejson
 
 def index_view(request):
+	user=request.user	
+	perfil=userProfile.objects.get(user=user)
+	ctx = {'perfil':perfil, 'user':request.user}
 	return render_to_response('home/index.html',context_instance=RequestContext(request))
 	
 @login_required		
@@ -57,27 +60,14 @@ def singleContacto_view(request, id_cont):
 
 @login_required	
 def perfil_view(request,id_cont):
+	
+	usuario = User.objects.get(id=id_cont)
+	
 	perf= userProfile.objects.get(id=id_cont)
-	ctx={'perfil':perf}
+	ctx={'perfil':perf, 'usuario_2':usuario}
 	return render_to_response('home/perfil.html',ctx,context_instance=RequestContext(request))
 	
-@login_required		
-def edit_perfil_view(request,id_cont):
-	info = "iniciado"
-	cont = contacto.objects.get(pk=id_cont)
-	if request.method == "POST":
-		form = addContactosForm(request.POST,request.FILES,instance=cont)
-		if form.is_valid():
-			edit_cont = form.save(commit=False)
-			form.save_m2m()
-			edit_cont.status = True
-			edit_cont.save() # Guardamos el objeto
-			info = "Correcto"
-			return HttpResponseRedirect('/contacto/%s/'%edit_cont.id)
-	else:
-		form = addContactosForm(instance=cont)
-	ctx = {'form':form,'informacion':info}
-	return render_to_response('contactos/edit.html',ctx,context_instance=RequestContext(request))
+
 
 	
 def login_view(request):

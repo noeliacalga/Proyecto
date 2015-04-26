@@ -9,7 +9,27 @@
 	<form action="." method="POST" enctype="multipart/form-data">
 		
 		{% csrf_token %}
-		{{ form.as_p }}
+		<label for="{{ form.nombre.auto_id }}">{{form.nombre.label}}</label>
+		{{form.nombre}} <br>
+		<label for="{{ form.apellidos.auto_id }}">{{form.apellidos.label}}</label>
+		{{form.apellidos}} <br>
+		<label for="{{ form.fecha_nacimiento.auto_id }}">{{form.fecha_nacimiento.label}}</label>
+        <input type="text" id="datepicker" name="fecha_nacimiento">
+		<label for="{{ form.telefono.auto_id }}">{{form.telefono.label}}</label>
+		{{form.telefono}} <br>
+		<label for="{{ form.direccion.auto_id }}">{{form.direccion.label}}</label>
+		{{form.direccion}} <br>
+		<label for="{{ form.correo.auto_id }}">{{form.correo.label}}</label>
+		{{form.correo}} <br>		
+		<p>Imagen</p>
+				
+		<input type="file" id="{{ form.nombre.auto_id }}" name="imagen"> <br> <br>
+		
+		<label for="{{ form.descripcion.auto_id }}">{{form.descripcion.label}}</label>
+		{{form.descripcion}} <br>
+		<label for="{{ form.categorias.auto_id }}">{{form.categorias.label}}</label>
+		{{form.categorias}} <br>
+		
 		
 		<input type="submit" value="Agregar">
 		<input type="reset" value="Limpiar">
@@ -17,5 +37,13 @@
 <br>
 	{{ informacion }}
 <a href="/contactos/page/1/" class="btn btn-primary">Regresar a la lista de Contactos</a>
+
+<script>
+  $(function() {
+    $("#datepicker").datepicker({
+        dateFormat: "dd/mm/yy"
+    });
+  });
+  </script>
 {% endif %}
 {% endblock %}

@@ -38,24 +38,22 @@ def edit_contactos_view(request, id_cont):
 
 @login_required		
 def edit_perfil_view(request,id_cont):
-	info = "iniciado"
-	perf= userProfile.objects.get(id=id_cont)
-	if contacto.cliente == request.user:
-		if request.method == "POST":
-			form = userProfileForm(request.POST,request.FILES,instance=perf)
-			if form.is_valid():
-				edit_perf = form.save(commit=False)
-				form.save_m2m()
-				edit_perf.status = True
-				edit_perf.save() # Guardamos el objeto
-				info = "Correcto"
-				return HttpResponseRedirect('/perfil/%s/' % edit_perf.id)
-		else:
-			form = userProfileForm(instance=perf)
-			ctx = {'form':form,'informacion':info}
-			return render_to_response('contactos/editperfil.html',ctx,context_instance=RequestContext(request))
-		
-
+	info = "iniciado"	
+	perfil= userProfile.objects.get(pk=id_cont)	
+	if request.method == "POST":		
+		form = userProfileForm(request.POST,request.FILES,instance=perfil)
+		if form.is_valid():
+			edit_perfil = form.save(commit=False)
+			form.save_m2m()
+			edit_perfil.status = True
+			edit_perfil.save() # Guardamos el objeto
+			info = "Correcto"
+			return HttpResponseRedirect('/perfil/%s/'%edit_perfil.id)
+	else:
+		form = userProfileForm(instance=perfil)
+	ctx = {'form':form,'informacion':info, 'perfil':perfil}
+	return render_to_response('contactos/editperfil.html',ctx,context_instance=RequestContext(request))
+	
 @login_required	
 def add_contactos_view(request):
 	info = ""

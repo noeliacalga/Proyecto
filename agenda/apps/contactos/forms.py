@@ -6,6 +6,7 @@ class addContactosForm(forms.ModelForm):
 	class Meta:
 		model = contacto
 		exclude = {'status','cliente'}
+		
 	
 	def __init__(self, *args, **kwargs):
 		super(addContactosForm, self).__init__(*args, **kwargs)
