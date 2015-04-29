@@ -12,9 +12,7 @@ from django.contrib.auth.decorators import login_required
 import json as simplejson
 
 def index_view(request):
-	user=request.user	
-	perfil=userProfile.objects.get(user=user)
-	ctx = {'perfil':perfil, 'user':request.user}
+	
 	return render_to_response('home/index.html',context_instance=RequestContext(request))
 	
 @login_required		
@@ -60,9 +58,7 @@ def singleContacto_view(request, id_cont):
 
 @login_required	
 def perfil_view(request,id_cont):
-	
-	usuario = User.objects.get(id=id_cont)
-	
+	usuario = User.objects.get(id=id_cont)	
 	perf= userProfile.objects.get(id=id_cont)
 	ctx={'perfil':perf, 'usuario_2':usuario}
 	return render_to_response('home/perfil.html',ctx,context_instance=RequestContext(request))
@@ -95,21 +91,37 @@ def logout_view(request):
 	return HttpResponseRedirect('/')
 
 def register_view(request):
-	form = RegisterForm()
+	form = RegisterForm(prefix='form')
+	form2 = userProfileForm(prefix='form2')
+	perfil = userProfile()
 	if request.method == "POST":
-		form = RegisterForm(request.POST)
-		if form.is_valid():
-			usuario = form.cleaned_data['username']
-			email = form.cleaned_data['email']
+		form = RegisterForm(request.POST, prefix='form')
+		form2 = userProfileForm(request.POST, prefix='form2')		
+		if form.is_valid() and form2.is_valid():
+			usuario = form.cleaned_data['username']			
 			password_one = form.cleaned_data['password_one']
 			password_two = form.cleaned_data['password_two']
-			u = User.objects.create_user(username=usuario,email=email,password=password_one)
+			perfil.apellidos = form2.cleaned_data['apellidos']
+			perfil.fecha_nacimiento = form2.cleaned_data['fecha_nacimiento']
+			perfil.telefono = form2.cleaned_data['telefono']
+			perfil.direccion = form2.cleaned_data['direccion']
+			perfil.correo = form2.cleaned_data['correo']
+			perfil.photo = form2.cleaned_data['photo']
+			perfil.nombre = usuario				
+			u = User.objects.create_user(username=usuario,password=password_one)
 			u.save() # Guardar el objeto
+			perfil.user=u
+			perfil.save()					
+			print "correcto"
 			return render_to_response('home/thanks_register.html',context_instance=RequestContext(request))
 		else:
-			ctx = {'form':form}
+			ctx = {'form':form , 'form2':form2}
+			print "error"
+			print(form.errors)
+			print(form2.errors)	
 			return 	render_to_response('home/register.html',ctx,context_instance=RequestContext(request))
-	ctx = {'form':form}
+	ctx = {'form':form,'form2':form2}
+	print "error2"
 	return render_to_response('home/register.html',ctx,context_instance=RequestContext(request))
 
 

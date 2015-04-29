@@ -10,8 +10,7 @@ class LoginForm(forms.Form):
 	password=forms.CharField(widget=forms.PasswordInput(render_value=False))
 
 class RegisterForm(forms.Form):
-	class Meta:
-		model= userProfile
+	
 	username = forms.CharField(label="Nombre de Usuario",widget=forms.TextInput())
 	email    = forms.EmailField(label="Correo Electronico",widget=forms.TextInput())
 	password_one = forms.CharField(label="Password",widget=forms.PasswordInput(render_value=False))

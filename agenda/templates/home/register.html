@@ -3,7 +3,28 @@
 {% block content %}
 <form action="." method="POST">
 	{% csrf_token %}
-	{{ form.as_p }}
+	{% csrf_token %}
+	<label for="{{ form.username.auto_id }}">{{form.username.label}}</label>
+		{{form.username}} <br>
+		<label for="{{ form.password_one.auto_id }}">{{form.password_one.label}}</label>
+		{{form.password_one}} <br>
+		<label for="{{ form.password_two.auto_id }}">{{form.password_two.label}}</label>
+		{{form.password_two}} <br>
+		<label for="{{ form2.apellidos.auto_id }}">{{form2.apellidos.label}}</label>
+		{{form2.apellidos}} <br>
+		<label for="{{ form2.fecha_nacimiento.auto_id }}">{{form2.fecha_nacimiento.label}}</label>
+		{{form2.fecha_nacimiento}} <br>
+		<label for="{{ form2.telefono.auto_id }}">{{form2.telefono.label}}</label>
+		{{form2.telefono}} <br>
+		<label for="{{ form2.direccion.auto_id }}">{{form2.direccion.label}}</label>
+		{{form2.direccion}} <br>
+		<label for="{{ form2.correo.auto_id }}">{{form2.correo.label}}</label>
+		{{form2.correo}} <br>
+		<label for="{{ form2.photo.auto_id }}">{{form2.photo.label}}</label>
+		{{form2.photo}} <br>
+		
+	<br>
+	
 	<button class="btn btn-primary" type="submit"> Registrar </button>
 </form>
 
