@@ -36,6 +36,5 @@ var nombre_ventana_modal = "#myModal"; // id
                     };
                 }
             };
-
         $(nombre_formulario_modal).ajaxForm(options);
     });

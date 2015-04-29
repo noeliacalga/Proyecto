@@ -14,7 +14,7 @@
     <p>¿Realmente desea eliminar el contacto <span id="modal_name"></span>?</p>
     </div>
     <div class="modal-footer">
-        <form method="post" id="frmEliminar">
+        <form method="post" id="frmEliminar" action=".">
             {% csrf_token %}
             <input type="hidden" id="modal_idContacto" name="contact_id">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>

@@ -24,11 +24,12 @@ def contactos_view(request,pagina):
 				p = contacto.objects.get(pk=id_contacto)
 				mensaje = {"status":"True","contact_id":p.id}
 				p.delete() # Elinamos objeto de la base de datos
-				return HttpResponse(simplejson.dumps(mensaje),mimetype='application/json')
+				# mimetype ya no se utiliza
+				return HttpResponse(simplejson.dumps(mensaje),content_type='application/json')
 				
 			except:
 				mensaje = {"status":"False"}
-				return HttpResponse(simplejson.dumps(mensaje),mimetype='application/json')
+				return HttpResponse(simplejson.dumps(mensaje),content_type='application/json')
 			
 	lista_cont = contacto.objects.filter(status=True, cliente= request.user)
 	paginator = Paginator(lista_cont,3)
@@ -59,7 +60,7 @@ def singleContacto_view(request, id_cont):
 @login_required	
 def perfil_view(request,id_cont):
 	usuario = User.objects.get(id=id_cont)	
-	perf= userProfile.objects.get(id=id_cont)
+	perf= userProfile.objects.get(user=usuario)
 	ctx={'perfil':perf, 'usuario_2':usuario}
 	return render_to_response('home/perfil.html',ctx,context_instance=RequestContext(request))
 	
