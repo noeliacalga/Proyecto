@@ -4,7 +4,7 @@
 <p></p>
 
 {% if user.is_authenticated %}
-	<td><a class="btn" href="/edit/perfil/{{perfil.id}}/"><li class="icon-pencil"></li>Editar</a></td>
+	<td><a class="btn" href="/edit/perfil/{{user.id}}/"><li class="icon-pencil"></li>Editar</a></td>
 	<p></p>
 
 	<p><b> Nombre =</b> {{ perfil.nombre }} </p>
@@ -13,6 +13,8 @@
 	<p><b> Telefono=</b> {{ perfil.telefono}} </p>
 	<p><b> Dirección =</b> {{ perfil.direccion}} </p>
 	<p><b> Correo =</b> {{ perfil.correo}} </p>
+	
+	
 	{% if perfil.photo %}
                 	 <img src ="/media/{{user.userprofile.photo}}"width="100px" heigth="100px"/>
 	{% endif %}

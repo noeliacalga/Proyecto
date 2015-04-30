@@ -38,8 +38,9 @@ def edit_contactos_view(request, id_cont):
 
 @login_required		
 def edit_perfil_view(request,id_cont):
-	info = "iniciado"	
-	perfil= userProfile.objects.get(pk=id_cont)	
+	info = "iniciado"
+	usuario = User.objects.get(id=id_cont)		
+	perfil= userProfile.objects.get(user=usuario)	
 	if request.method == "POST":		
 		form = userProfileForm(request.POST,request.FILES,instance=perfil)
 		if form.is_valid():
@@ -48,6 +49,7 @@ def edit_perfil_view(request,id_cont):
 			edit_perfil.status = True
 			edit_perfil.save() # Guardamos el objeto
 			info = "Correcto"
+			edit_perfil.id=request.user.id
 			return HttpResponseRedirect('/perfil/%s/'%edit_perfil.id)
 	else:
 		form = userProfileForm(instance=perfil)
@@ -85,6 +87,7 @@ def search_view(request):
             Q(correo__icontains=query)
         )
         results = contacto.objects.filter(qset).distinct()
+        
     else:
         results = []
     return render_to_response("home/search.html", {

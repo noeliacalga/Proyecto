@@ -50,10 +50,11 @@
             <ul class="nav nav-list">
                            
         {% if user.is_authenticated %}
-				<u><center><li><a href="/perfil/{{user.id}}/">Mi perfil</a></center></u>
-                <center><p>Bienvenido {{ user }} </p></center>
+				<u><center><li><a href="/perfil/{{user.id}}/" class="btn btn-inverse" type="button">Mi perfil</a></center></u>
+				
+                <center><h4>Bienvenido {{ user }} </h4></center>
 		{% if user.userprofile.photo %}
-                	 <center><img src ="/media/{{user.userprofile.photo}}"width="100px" heigth="100px"/></center>
+                	 <center><img src ="/media/{{user.userprofile.photo}}"width="200px" heigth="200px"/></center>
 		{% endif %}
               {% else %}
                <center><a href="/login/" class="btn btn-primary">Login<a></center>

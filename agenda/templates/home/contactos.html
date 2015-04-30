@@ -66,18 +66,18 @@
 	<div class="pagination"><center>
 	<ul>
 	
-	<li><a href="/contactos/page/1"> << </a>
+	<li><a href="/contactos/page/1" class="btn btn-inverse" "pager"> << </a>
 	{% if contactos.has_previous %}
-		<li><a href="/contactos/page/{{contactos.previous_page_number }}/"> Anterior </a>
+		<li><a href="/contactos/page/{{contactos.previous_page_number }}/" class="btn btn-inverse" "pager"> Anterior </a>
 	{% else %}
-		<li><a href="#"> Anterior </a>
+		<li><a href="#" class="btn btn-inverse" "pager"> Anterior </a>
 	{% endif %}
 	{% if contactos.has_next %}
-		<li><a href="/contactos/page/{{contactos.next_page_number }}/"> Siguiente </a>
+		<li><a href="/contactos/page/{{contactos.next_page_number }}/" class="btn btn-inverse" "pager"> Siguiente </a>
 	{% else %}
-		<li><a href="#"> Siguiente </a>
+		<li><a href="#" class="btn btn-inverse" "pager"> Siguiente </a>
 	{% endif %}
-		<li><a href="/contactos/page/{{contactos.paginator.num_pages }} "> >> </a>
+		<li><a href="/contactos/page/{{contactos.paginator.num_pages }} " class="btn btn-inverse" "pager"> >> </a>
 	</center>
 	</ul>
 	</div>
