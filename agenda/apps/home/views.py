@@ -59,11 +59,14 @@ def singleContacto_view(request, id_cont):
 
 @login_required	
 def perfil_view(request,id_cont):
-	usuario = User.objects.get(id=id_cont)	
+	usuario_visita_web = request.user
+	usuario = User.objects.get(id=id_cont)
 	perf= userProfile.objects.get(user=usuario)
-	ctx={'perfil':perf, 'usuario_2':usuario}
-	return render_to_response('home/perfil.html',ctx,context_instance=RequestContext(request))
-	
+	if usuario_visita_web.id == usuario.id:	
+		ctx={'perfil':perf, 'usuario_2':usuario}
+		return render_to_response('home/perfil.html',ctx,context_instance=RequestContext(request))
+	else:
+		return HttpResponseRedirect("/")	
 
 
 	
