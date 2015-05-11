@@ -15,7 +15,7 @@
 		<label for="{{ form.apellidos.auto_id }}">{{form.apellidos.label}}</label>
 		{{form.apellidos}} <br>
 		<label for="{{ form.fecha_nacimiento.auto_id }}">{{form.fecha_nacimiento.label}}</label>
-        <input type="text" id="datepicker" name="fecha_nacimiento">
+        <input type="text" id="datepicker" value="{{fecha_nacimiento|date:"d/m/Y"}}" name="fecha_nacimiento">
 		<label for="{{ form.telefono.auto_id }}">{{form.telefono.label}}</label>
 		{{form.telefono}} <br>
 		<label for="{{ form.direccion.auto_id }}">{{form.direccion.label}}</label>
@@ -38,7 +38,7 @@
 <br>
 	{{ informacion }}
 <a href="/contactos/page/1/" class="btn btn-primary">Regresar a la lista de Contactos</a>
-
+<div class="span6">
 <script>
   $(function() {
     $("#datepicker").datepicker({
@@ -46,5 +46,6 @@
     });
   });
   </script>
+ </div>
 {% endif %}
 {% endblock %}

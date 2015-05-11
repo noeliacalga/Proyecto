@@ -112,7 +112,8 @@ def register_view(request):
 			perfil.direccion = form2.cleaned_data['direccion']
 			perfil.correo = form2.cleaned_data['correo']
 			perfil.photo = form2.cleaned_data['photo']
-			perfil.nombre = usuario				
+			perfil.nombre = usuario
+			email=perfil.correo				
 			u = User.objects.create_user(username=usuario,password=password_one)
 			u.save() # Guardar el objeto
 			perfil.user=u

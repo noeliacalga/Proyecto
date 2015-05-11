@@ -58,6 +58,7 @@ def edit_perfil_view(request,id_cont):
 				print(request.FILES)
 				fecha = datetime.datetime.strptime(str(form.cleaned_data['fecha_nacimiento'].date()), '%Y-%d-%m').date()
 				edit_perfil.fecha_nacimiento = fecha
+				edit_perfil.photo = request.FILES['imagen']
 				form.save_m2m()
 				edit_perfil.status = True
 				edit_perfil.save() # Guardamos el objeto
