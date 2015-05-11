@@ -18,6 +18,7 @@ def index_view(request):
 @login_required		
 def contactos_view(request,pagina):
 	if request.method=="POST":
+		
 		if "contact_id" in request.POST:
 			try:
 				id_contacto = request.POST['contact_id']

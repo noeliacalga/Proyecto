@@ -16,25 +16,33 @@ def edit_contactos_view(request, id_cont):
     usuario_visita_web = request.user
     info = "iniciado"
     cont = contacto.objects.get(pk=id_cont)
-    if usuario_visita_web.id == cont.cliente.id:  # Si es el creador del contacto
-        if request.method == "POST":
-            form = addContactosForm(request.POST, request.FILES, instance=cont)
-            if form.is_valid():
-                edit_cont = form.save(commit=False)
-                fecha = datetime.datetime.strptime(str(form.cleaned_data['fecha_nacimiento'].date()), '%Y-%d-%m').date()
-                print(fecha)
-                form.save_m2m()
-                edit_cont.fecha_nacimiento = fecha
-                edit_cont.status = True
-                edit_cont.save()  # Guardamos el objeto
-                info = "Correcto"
-                return HttpResponseRedirect('/contacto/%s/' % edit_cont.id)
+    if usuario_visita_web.id == cont.cliente.id:  # Si el usuario logueado es el creador del contacto
+        if request.method == "POST":			
+			form = addContactosForm(request.POST, request.FILES, instance=cont)
+			if form.is_valid():
+				edit_cont = form.save(commit=False)
+				fecha = datetime.datetime.strptime(str(form.cleaned_data['fecha_nacimiento'].date()), '%Y-%d-%m').date()
+				print(fecha)
+				form.save_m2m()
+				edit_cont.fecha_nacimiento = fecha
+				edit_cont.status = True
+				print "editando"
+				edit_cont.save()  # Guardamos el objeto
+				info = "Correcto"
+				return HttpResponseRedirect('/contacto/%s/'%edit_cont.id)
+			else:
+				print("Error de datos")
+				print(form.errors)
+				ctx = {'form': form, 'informacion': info, 'contacto': cont}
+				return render_to_response('contactos/edit.html', ctx, context_instance=RequestContext(request))
         else:
             form = addContactosForm(instance=cont)
             ctx = {'form': form, 'informacion': info, 'contacto': cont}
+            print "error"
             return render_to_response('contactos/edit.html', ctx, context_instance=RequestContext(request))
     else:
-        return HttpResponseRedirect("/")
+		print "nada"
+		return HttpResponseRedirect("/")
 
 @login_required		
 def edit_perfil_view(request,id_cont):
@@ -46,7 +54,10 @@ def edit_perfil_view(request,id_cont):
 		if request.method == "POST":		
 			form = userProfileForm(request.POST,request.FILES,instance=perfil)
 			if form.is_valid():
-				edit_perfil = form.save(commit=False)
+				edit_perfil = form.save(commit=False)				
+				print(request.FILES)
+				fecha = datetime.datetime.strptime(str(form.cleaned_data['fecha_nacimiento'].date()), '%Y-%d-%m').date()
+				edit_perfil.fecha_nacimiento = fecha
 				form.save_m2m()
 				edit_perfil.status = True
 				edit_perfil.save() # Guardamos el objeto
@@ -69,6 +80,8 @@ def add_contactos_view(request):
 		if form.is_valid():			
 			add = form.save(commit=False)
 			add.cliente=request.user
+			fecha = datetime.datetime.strptime(str(form.cleaned_data['fecha_nacimiento'].date()), '%Y-%d-%m').date()
+			add.fecha_nacimiento = fecha
 			add.status = True
 			add.save() # Guardamos la informacion
 			form.save_m2m() # Guarda las relaciones de ManyToMany

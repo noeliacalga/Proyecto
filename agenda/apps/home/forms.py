@@ -43,7 +43,7 @@ class RegisterForm(forms.Form):
 
 class userProfileForm(forms.ModelForm):
 	class Meta:
-		model = userProfile		
+		model = userProfile				
 		exclude = {'user'}
 '''
 class ContactForm(forms.Form):

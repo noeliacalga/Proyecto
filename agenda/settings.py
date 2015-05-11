@@ -57,6 +57,7 @@ ROOT_URLCONF = 'agenda.urls'
 
 AUTH_PROFILE_MODULE = 'home.userProfile'
 
+
 WSGI_APPLICATION = 'agenda.wsgi.application'
 
 
@@ -89,3 +90,5 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DATE_INPUT_FORMATS=('%d-%m-%Y','%Y-%m-%d')

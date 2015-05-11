@@ -12,7 +12,7 @@ class userProfile(models.Model):
 	telefono	= models.CharField(max_length=9)
 	direccion	= models.CharField(max_length=200)
 	correo		= models.CharField(max_length=200)
-	photo = models.ImageField(upload_to=url,null=True, blank=True)
+	photo 		= models.ImageField(upload_to=url,null=True, blank=True)
 	
 	USERNAME_FIELD = 'nombre'
 	def __unicode__(self):

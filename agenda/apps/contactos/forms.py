@@ -1,8 +1,9 @@
 from django import forms
 from agenda.apps.contactos.models import contacto
-
+from agenda.settings import DATE_INPUT_FORMATS
 
 class addContactosForm(forms.ModelForm):
+	
 	class Meta:
 		model = contacto
 		exclude = {'status','cliente'}
