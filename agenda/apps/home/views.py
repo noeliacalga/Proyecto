@@ -113,7 +113,7 @@ def register_view(request):
 			perfil.correo = form2.cleaned_data['correo']
 			perfil.photo = form2.cleaned_data['photo']
 			perfil.nombre = usuario
-			u.email=perfil.correo				
+			email=perfil.correo				
 			u = User.objects.create_user(username=usuario,password=password_one)
 			u.save() # Guardar el objeto
 			perfil.user=u
@@ -122,9 +122,12 @@ def register_view(request):
 			return render_to_response('home/thanks_register.html',context_instance=RequestContext(request))
 		else:
 			ctx = {'form':form , 'form2':form2}
-			print "error"
+			print("Errores del form 1: ")
 			print(form.errors)
+			print("==================")
+			print("errores del form 2:")
 			print(form2.errors)	
+			print("==================")
 			return 	render_to_response('home/register.html',ctx,context_instance=RequestContext(request))
 	ctx = {'form':form,'form2':form2}
 	print "error2"
